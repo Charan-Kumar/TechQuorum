@@ -48,16 +48,16 @@ async function storeFiles (files) {
 const { Option } = Select;
 const layout = {
   labelCol: {
-    span: 8,
+    span: 4,
   },
   wrapperCol: {
-    span: 16,
+    span: 10,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 4,
+    span: 14,
   },
 };
 
@@ -65,6 +65,27 @@ export default function CreateProfile() {
   const [form] = Form.useForm();
 
   const onDaoChange = (value) => {
+    switch (value) {
+      case 'dao1':
+        /*form.setFieldsValue({
+          note: 'Hi, man!',
+        });*/
+        return;
+
+      case 'dao2':
+        /*form.setFieldsValue({
+          note: 'Hi, lady!',
+        });*/
+        return;
+
+      case 'other':
+        /*form.setFieldsValue({
+          note: 'Hi there!',
+        });*/
+    }
+  };
+
+  const onCoinChange = (value) => {
     switch (value) {
       case 'dao1':
         /*form.setFieldsValue({
@@ -163,22 +184,37 @@ export default function CreateProfile() {
           },
         ]}
       >
-        <Input />
+         <Input.TextArea />
       </Form.Item>
+      
       <Form.Item
         name="githublink"
         label="GithubLink"
-        rules={[
-          {
-            required: true,
-          },
-        ]}
+        rules={[{ required: false }, { type: 'url', warningOnly: true }, { type: 'string', min: 6 }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
+        name="coin"
+        label="Coin"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={onCoinChange}
+          allowClear
+        >
+          <Option value="USD">USD</Option>
+          <Option value="USDT">USDT</Option>
+          <Option value="DAI">DAI</Option>
+        </Select>
+        <Form.Item
         name="rate"
-        label="Rate"
+        label="Enter Amount"
         rules={[
           {
             required: true,
@@ -187,6 +223,9 @@ export default function CreateProfile() {
       >
         <Input />
       </Form.Item>
+      </Form.Item>
+      
+
       <Form.Item
         name="skill"
         label="Skill"
