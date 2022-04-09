@@ -1,50 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Form, Input, Button, Select } from 'antd';
-import { Web3Storage } from 'web3.storage'
-import { getFilesFromPath } from 'web3.storage'
-import { File } from 'web3.storage'
-import {Buffer} from 'buffer';
+import { storeIntoIpfs } from "../Ipfs/ipfs";
 
-function makeFileObjects (values) {
-  // You can create File objects from a Buffer of binary data
-  // see: https://nodejs.org/api/buffer.html
-  // Here we're just storing a JSON object, but you can store images,
-  // audio, or whatever you want!
-  //const objq1 = { handle:'handle of lens', handleDAO:'handle of DAO', question:'text data', link:'link', code:'code', }
-  //const obja1 = { handleQU:'handle of Q of User', handleAU:'handle of Ans of User', handleDAO:'handle of DAO', question:'text data', link:'link', code:'code', }
-  const buffer1 = Buffer.from(JSON.stringify(values))
-  //const buffer2 = Buffer.from(JSON.stringify(obja1))
 
-  const files = [
-    new File([buffer1], 'q1.json'),
-    //new File([buffer2], 'a1.json')
-  ]
-  return files
-}
-function getAccessToken () {
-  // If you're just testing, you can paste in a token
-  // and uncomment the following line:
-   return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDY2OEJBQTIyRTk0QjJENjAzOTMwMjQxMTAzNmUxQzQyMzFkNURFY2MiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NDkzNDk0Mjk0NTcsIm5hbWUiOiJUZXN0In0.4FwYdVSQauy64v3HPLeQLhpHDCTdP5-ky2tYXrmb954'
-
-  // In a real app, it's better to read an access token from an
-  // environement variable or other configuration that's kept outside of
-  // your code base. For this to work, you need to set the
-  // WEB3STORAGE_TOKEN environment variable before you run your code.
-  //return process.env.WEB3STORAGE_TOKEN
-}
-
-function makeStorageClient () {
-  return new Web3Storage({ token: getAccessToken() })
-}
-
-async function storeFiles (files) {
-  const client = makeStorageClient()
-  
-  const cid = await client.put(files)
-  console.log('stored files with cid:', cid)
-  return cid
-}
 const { Option } = Select;
 const layout = {
   labelCol: {
@@ -107,9 +65,8 @@ export default function CreateProfile() {
   };
 
   const onFinish = (values) => {
-    const files = makeFileObjects(values)
-    storeFiles (files)
-    console.log(values);
+    let cid = storeIntoIpfs (values)
+    console.log(cid);
   };
 
   const onReset = () => {

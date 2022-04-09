@@ -44,4 +44,23 @@ export const createFlow = async (superTokenAddress,receiver ,amount, flowRate) =
     const receit = await tx.wait()    
 }
 
+/// @dev function to create a new flow between the connected wallet and any arbitary address
+/// Use this function to create a flow between the end-user hiring a DAO and the DAO
+// @param superTokenAddress : Address for the token to be used
+// @param receiver : receiver of the flow
+// @param amount : total amount to approve for can be MAX_UINT
+export const deleteFlow = async (superTokenAddress,receiver ,amount) =>
+{
+    const signer = await superFluid.createSigner({web3Provider : provider});
+    const token = await superFluid.loadSuperToken(superTokenAddress); 
+    const approveOperation = await token.approve({receiver : receiver, amount : ethers.utils.parseEther(amount).toString()});
+    const deleteFlowOperation = await superFluid.cfaV1.deleteFlow({
+        sender : getAddress(),
+        receiver : receiver,
+        superToken : superTokenAddress,
+        by : getAddress(),
+    });
+    const tx = superFluid.batchCall([approveOperation, deleteFlowOperation]).exec(signer);
+    const receit = await tx.wait()    
+}
 export const updateFlow = async (superTokenAddress, receiver, amount ,flowRate )
