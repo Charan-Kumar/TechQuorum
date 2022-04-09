@@ -76,5 +76,6 @@ import {axios} from 'axios';
     //useraddress,answertext,upvotecount,type-(A/Q)
     let jsonData = retriveDataIpfs(cid)
     jsonData.upvotecount+=upvote;
-    storeIntoIpfs(jsonData)
+    let cid = storeIntoIpfs(jsonData)
+    return cid;
   }
