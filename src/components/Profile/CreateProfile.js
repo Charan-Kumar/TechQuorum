@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Select } from 'antd';
-import { storeIntoIpfs } from "../Ipfs/ipfs";
+import { storeIntoIpfs, retriveDataIpfs } from "../Ipfs/ipfs";
 
 
 const { Option } = Select;
@@ -65,8 +65,17 @@ export default function CreateProfile() {
   };
 
   const onFinish = (values) => {
-    let cid = storeIntoIpfs (values)
-    console.log(cid);
+    console.log(values);
+    storeIntoIpfs (values).then(function (response) {
+      console.log(response);
+      retriveDataIpfs(response).then(function (res) {
+        console.log("create profile",res);
+      })
+      //return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
   };
 
   const onReset = () => {
@@ -156,7 +165,7 @@ export default function CreateProfile() {
         label="Coin"
         rules={[
           {
-            required: true,
+            required: false,
           },
         ]}
       >

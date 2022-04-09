@@ -4,10 +4,13 @@ import {Buffer} from 'buffer';
 import {axios} from 'axios';
 
  function makeFileObjects (values) {
+     console.log(JSON.stringify(values))
     const buffer = Buffer.from(JSON.stringify(values))  
+    console.log(buffer)
     const files = [
       new File([buffer], 'Data.json'),
     ]
+    console.log(files)
     return files
   }
 
@@ -16,7 +19,8 @@ import {axios} from 'axios';
     // environement variable or other configuration that's kept outside of
     // your code base. For this to work, you need to set the
     // WEB3STORAGE_TOKEN environment variable before you run your code.
-    return process.env.WEB3STORAGE_TOKEN
+    //return process.env.WEB3STORAGE_TOKEN
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDY2OEJBQTIyRTk0QjJENjAzOTMwMjQxMTAzNmUxQzQyMzFkNURFY2MiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NDkzNDk0Mjk0NTcsIm5hbWUiOiJUZXN0In0.4FwYdVSQauy64v3HPLeQLhpHDCTdP5-ky2tYXrmb954'
   }
   
   function makeStorageClient () {
@@ -27,8 +31,9 @@ import {axios} from 'axios';
   export const storeIntoIpfs = async (values) => {
     const client = makeStorageClient()
     const files = makeFileObjects(values)
+    console.log(files)
     const cid = await client.put(files)
-    //console.log('stored files with cid:', cid)
+    console.log('stored files with cid:', cid)
     return cid
   }
 
@@ -60,8 +65,9 @@ import {axios} from 'axios';
     
     axios(config)
     .then(function (response) {
-      //console.log(JSON.stringify(response.data));
+      console.log(JSON.stringify(response.data));
       const obj = JSON.parse(JSON.stringify(response.data));
+      console.log(obj)
       return obj;
     })
     .catch(function (error) {
@@ -76,6 +82,6 @@ import {axios} from 'axios';
     //useraddress,answertext,upvotecount,type-(A/Q)
     let jsonData = retriveDataIpfs(cid)
     jsonData.upvotecount+=upvote;
-    let cid = storeIntoIpfs(jsonData)
-    return cid;
+    let cidipfs = storeIntoIpfs(jsonData)
+    return cidipfs;
   }
