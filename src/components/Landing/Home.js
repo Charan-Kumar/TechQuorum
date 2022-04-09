@@ -1,9 +1,13 @@
 import React from 'react'
+import Trending from '../Forum/Trending'
+import Categories from '../Categories/Categories'
+
 
 export default function Home() {
   return (
     <div>
-      Landing Page
+      <Trending />
+      <Categories />
     </div>
   )
 }
