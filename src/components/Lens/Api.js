@@ -3,7 +3,7 @@ import { signText,
     signTypedData,
     splitSignatures,
     getLensHub, 
-    // getFollowNftContract
+    getFollowNftContract
 } from "./ethersUtils";
 
 import {
