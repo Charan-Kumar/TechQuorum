@@ -1,38 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Typography, Row, Col, Space } from 'antd';
 import PostCard from './PostCard';
 import {
   BarChartOutlined,
 } from '@ant-design/icons';
-
+import { useEthers } from '@usedapp/core';
+import { getProfilesRequest } from '../Lens/ApolloRequest'
 
 export default function Trending() {
-  const posts = [
-    {
-      title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      url: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-      userName: "Charan",
-      timestamp: "",
-      avatar: "",
-      category: "React"
-    },
-    {
-      title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      url: "https://images.pexels.com/photos/360591/pexels-photo-360591.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      userName: "Prayag",
-      timestamp: "",
-      avatar: "",
-      category: "Web3"
-    },
-    {
-      title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      url: "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80",
-      userName: "Vikas",
-      timestamp: "",
-      avatar: "",
-      category: "Smart Contracts"
+  const [ daos, setDaos] = useState([])
+  const {  account } = useEthers();
+
+  React.useEffect(async() => {
+    if( account ){
+      const { data } = await getProfilesRequest({ ownedBy: "0xbdAC7706C6432eDbA399510b7285A0f27Dd6E4B6" })
+      setDaos(data.profiles.items)
     }
-  ]
+  }, [account]);
+
   return (
     <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
       <Row gutter={[16, 24]}>
@@ -45,9 +30,9 @@ export default function Trending() {
         </Col>
       </Row>
       <Row gutter={16}>
-        { posts.map((a) => (
+        { daos.map((d) => (
           <Col span={8}>
-            <PostCard post={a} />
+            <PostCard dao={d} />
           </Col>
         ))}
         

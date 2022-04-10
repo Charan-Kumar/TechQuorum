@@ -4,6 +4,7 @@ import Home from '../components/Landing/Home';
 import CreateProfile from '../components/Profile/CreateProfile';
 import Forum from '../components/Forum/Forum';
 import CreateDao from '../components/DAO/CreateDao';
+import New from '../components/Profile/New';
 
 function PrivateRoute({ children }) {
   return ( localStorage.getItem('access_token') !== null) ? children : <Navigate to="/" />;
@@ -24,6 +25,9 @@ export default (childProps) => {
       } />
       <Route path="/create_dao" element={
         <CreateDao {...childProps} />
+      } />
+      <Route path="/create_profile" element={
+        <New {...childProps} />
       } />
       {/* <Route path="/new_profile" element={
         <PrivateRoute>
