@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { createProfile } from '../Lens/Api';
+import { create_Profile } from '../Lens/Api';
 import { Form, Input, Button, Select } from 'antd';
 
 const { Option } = Select;
@@ -131,7 +131,7 @@ Want to add fees for users who want to follow you?
   <button className="btn btn-primary" 
   onClick={(e)=>{
     e.preventDefault(); 
-    createProfile(createProfileRequest);
+    create_Profile(createProfileRequest);
 
     }
   }>Create</button>
