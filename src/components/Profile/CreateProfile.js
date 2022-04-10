@@ -68,9 +68,9 @@ export default function CreateProfile() {
     console.log(values);
     storeIntoIpfs (values).then(function (response) {
       console.log(response);
-      retriveDataIpfs(response).then(function (res) {
+      /*retriveDataIpfs(response).then(function (res) {
         console.log("create profile",res);
-      })
+      })*/
       //return response;
     })
     .catch(function (error) {
