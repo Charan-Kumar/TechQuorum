@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { gql } from "@apollo/client";
-import { authenticatedApolloClient } from "../Lens/ApolloClient";
 import { createProfile } from '../Lens/Api';
 import { Form, Input, Button, Select } from 'antd';
 
