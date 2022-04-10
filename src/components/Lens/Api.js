@@ -67,7 +67,7 @@ export const unfollow = async(profileId) => {
     const { v, r, s } = splitSignatures(signature);
     
     // load up the follower nft contract
-    const followNftContract = await getFollowNftContract();
+    /*const followNftContract = await getFollowNftContract();
     
     const sig = {
         v,
@@ -77,10 +77,10 @@ export const unfollow = async(profileId) => {
      }
     
     const tx = await followNftContract.burnWithSig(typedData.value.tokenId, sig);
-    console.log(tx.hash);
+    console.log(tx.hash);*/
   }
   
-export const createProfile = async (createProfileRequest) => {
+export const createProfileReq = async (createProfileRequest) => {
   const tx = await createProfile(createProfileRequest);
   console.log(tx);
 }
