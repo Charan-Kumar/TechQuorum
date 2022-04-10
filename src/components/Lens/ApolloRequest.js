@@ -76,4 +76,11 @@ export const getFollowerRequest = (profileId) => {
          }
      })
  }
+
+ export const createProfile = async (createProfileRequest) => {
+     return authenticatedApolloClient.mutate({
+         mutation : gql(CREATE_PROFILE),
+         variables : {request : {createProfileRequest}}
+     });
+ }
    

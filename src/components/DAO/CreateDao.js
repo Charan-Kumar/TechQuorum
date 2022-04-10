@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { gql } from "@apollo/client";
-import { authenticatedApolloClient } from "../Lens/ApolloClient";
+import { create_Profile } from '../Lens/Api';
 import { Form, Input, Button, Select } from 'antd';
 
 const { Option } = Select;
@@ -19,29 +18,7 @@ const tailLayout = {
   },
 };
 
-const CREATE_PROFILE = `
-  mutation($request: CreateProfileRequest!) { 
-    createProfile(request: $request) {
-      ... on RelayerResult {
-        txHash
-      }
-      ... on RelayError {
-        reason
-      }
-            __typename
-    }
- }
-`
 
-export const createProfile = (createProfileRequest) => {
-    console.log(createProfileRequest)
-   return authenticatedApolloClient.mutate({
-    mutation: gql(CREATE_PROFILE),
-    variables: {
-      request: createProfileRequest
-    },
-  })
-}
 
 export default function CreateDao(){
   let [daoNameState,setDAONameState] = useState("");
@@ -56,7 +33,7 @@ export default function CreateDao(){
           value: feesState,
           //  decimals: parseInt(6)
       },
-      recipient: walletState
+      recipient: "0x3aa821cEE6194C4aD7e3F3d6E393F646D1Cd65Db" // Protocol Owned Account
 }
 
 };
@@ -154,7 +131,7 @@ Want to add fees for users who want to follow you?
   <button className="btn btn-primary" 
   onClick={(e)=>{
     e.preventDefault(); 
-    createProfile(createProfileRequest);
+    create_Profile(createProfileRequest);
 
     }
   }>Create</button>

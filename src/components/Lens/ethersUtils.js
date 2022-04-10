@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import omitDeep from "omit-deep";
 import lensHubArtifact from "../../assets/abi/LensHub.json";
+import followNFTArtifact from "../../assets/abi/followNFT.json";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -35,8 +36,8 @@ export const getLensHub = async () => {
   return await new ethers.Contract(lensHubAddress , lensHubArtifact, signer);      
 }
 
-// export const getFollowNftContract = async (typedData) =>
-// {
-//   const signer = provider.getSigner();
-//   return await new ethers.Contract(typedData.domain.verifyingContract, followNFTArtifact, signer);
-// } 
+export const getFollowNftContract = async (typedData) =>
+{
+  const signer = provider.getSigner();
+  return await new ethers.Contract(typedData.domain.verifyingContract, followNFTArtifact, signer);
+} 
