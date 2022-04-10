@@ -3,8 +3,11 @@ import { signText,
     signTypedData,
     splitSignatures,
     getLensHub, 
-    getFollowNftContract} from "./ethersUtils";
-import {createUnfollowTypedData,
+    // getFollowNftContract
+} from "./ethersUtils";
+
+import {
+  createUnfollowTypedData,
     createFollowTypedData,
     getFollowerRequest,
     authencticate,
@@ -53,28 +56,28 @@ export const follow = async (followRequestInfo) => {
 
 
 
-export const unfollow = async(profileId) => {
+// export const unfollow = async(profileId) => {
   
-    const result = await createUnfollowTypedData(profileId);
+//     const result = await createUnfollowTypedData(profileId);
      
-    const typedData = result.data.createUnfollowTypedData.typedData;
+//     const typedData = result.data.createUnfollowTypedData.typedData;
     
-    const signature = await signTypedData(typedData.domain, typedData.types, typedData.value);
-    const { v, r, s } = splitSignatures(signature);
+//     const signature = await signTypedData(typedData.domain, typedData.types, typedData.value);
+//     const { v, r, s } = splitSignatures(signature);
     
-    // load up the follower nft contract
-    const followNftContract = await getFollowNftContract();
+//     // load up the follower nft contract
+//     const followNftContract = await getFollowNftContract();
     
-    const sig = {
-        v,
-        r,
-        s,
-        deadline: typedData.value.deadline,
-     }
+//     const sig = {
+//         v,
+//         r,
+//         s,
+//         deadline: typedData.value.deadline,
+//      }
     
-    const tx = await followNftContract.burnWithSig(typedData.value.tokenId, sig);
-    console.log(tx.hash);
-  }
+//     const tx = await followNftContract.burnWithSig(typedData.value.tokenId, sig);
+//     console.log(tx.hash);
+//   }
   
   
 

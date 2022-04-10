@@ -4,7 +4,6 @@ import Icon, { FolderFilled } from '@ant-design/icons';
 import ReactSvg from '../../assets/images/react.svg';
 import LensSvg from '../../assets/images/lens.svg';
 import Web3Svg from '../../assets/images/web3.svg';
-import SoliditySvg from '../../assets/images/solidity.svg'
 
 
 export default function Categories() {
@@ -47,7 +46,7 @@ export default function Categories() {
         <Col span={4}>
           <Card bordered={true} hoverable={true}>
             <Space direction="vertical" size="middle" style={{ display: 'flex', textAlign: 'center', marginTop: '30px' }}>
-              <Image src={SoliditySvg} style={{ height: '36px', color: '#08c' }} />
+              <Image src={LensSvg} style={{ height: '36px', color: '#08c' }} />
               <Typography.Title  type={"primary"} level={3}>Solidity</Typography.Title>
             </Space>
           </Card>

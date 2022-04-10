@@ -1,4 +1,4 @@
-import {Framework} from "@superfluid-finance/sdk-core";
+import { Framework } from "@superfluid-finance/sdk-core";
 import { ethers } from "ethers";
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
