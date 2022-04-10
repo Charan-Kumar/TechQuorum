@@ -10,11 +10,10 @@ export default function PostCard({post}) {
         <Typography.Title className="post-title" level={4}>{ post.title }</Typography.Title>
         <Row justify="start" align="middle" className="post-user">
           <Col span={5}>
-            <Avatar size={54} style={{ backgroundColor: "#f56a00", verticalAlign: 'middle' }} shape="square" icon={<UserOutlined />} />
+            <Avatar size={36} style={{ backgroundColor: "#f56a00", verticalAlign: 'middle' }} shape="square" icon={<UserOutlined />} />
           </Col>
           <Col span={7} align="middle" justify="start">
-            <Typography.Title level={5}>{ post.userName }</Typography.Title>
-            <Paragraph level={5}>{ "7 hours ago" }</Paragraph>
+            <Typography.Title level={5}>{ 7 }</Typography.Title>
           </Col>
         </Row>
       </Card>

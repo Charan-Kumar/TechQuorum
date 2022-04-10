@@ -18,7 +18,7 @@ function App() {
   const getAccessToken = async () => {
     if( account ){
       await login()
-
+      localStorage.setItem('jobs', [])
     }
   }
 

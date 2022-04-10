@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, Typography } from 'antd';
 import { storeIntoIpfs, retriveDataIpfs } from "../Ipfs/ipfs";
-
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 const layout = {
@@ -21,6 +21,8 @@ const tailLayout = {
 
 export default function CreateProfile() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
 
   const onDaoChange = (value) => {
     switch (value) {
@@ -68,10 +70,10 @@ export default function CreateProfile() {
     console.log(values);
     storeIntoIpfs (values).then(function (response) {
       console.log(response);
-      /*retriveDataIpfs(response).then(function (res) {
-        console.log("create profile",res);
-      })*/
-      //return response;
+      let previosJobs = JSON.parse(localStorage.getItem('jobs'))
+      previosJobs[response] = values
+      localStorage.setItem('jobs',  JSON.stringify(previosJobs))
+      navigate('/')
     })
     .catch(function (error) {
       console.log(error);
