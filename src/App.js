@@ -10,7 +10,7 @@ import { login, getProfilesRequest } from '../src/components/Lens/Api'
 
 
 function App() {
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   const {  account, activateBrowserWallet } = useEthers();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -18,28 +18,30 @@ function App() {
   const getAccessToken = async () => {
     if( account ){
       await login()
-      navigate('/home')
+
     }
   }
 
   React.useEffect(async() => {
-    // getAccessToken()
+    if( localStorage.getItem('access_token') !== null ){
+      getAccessToken()
+
+    }
   }, [account]);
 
   return (
     <div className="App">
-      
+      <Layout>
+        <Navbar />
         <Layout>
-          <Navbar />
-          <Layout>
-          { localStorage.getItem('access_token') &&  <Sidebar /> }
-            <Content>
-              <div>
-                <Routes />
-              </div>
-            </Content>
-          </Layout>
+        { account &&  <Sidebar /> }
+          <Content>
+            <div>
+              <Routes />
+            </div>
+          </Content>
         </Layout>
+      </Layout>
     </div>
   );
 }

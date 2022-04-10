@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from '../components/Landing/Home';
 import CreateProfile from '../components/Profile/CreateProfile';
+import Forum from '../components/Forum/Forum';
 
 function PrivateRoute({ children }) {
   return ( localStorage.getItem('access_token') !== null) ? children : <Navigate to="/" />;
@@ -14,8 +15,11 @@ export default (childProps) => {
       <Route path="/" element={
         <Home {...childProps} />
       } />
-      <Route path="/create_profile" element={
+      <Route path="/hire" element={
         <CreateProfile {...childProps} />
+      } />
+       <Route path="/forum" element={
+        <Forum {...childProps} />
       } />
       {/* <Route path="/new_profile" element={
         <PrivateRoute>

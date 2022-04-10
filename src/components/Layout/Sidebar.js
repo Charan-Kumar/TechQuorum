@@ -21,8 +21,8 @@ export default function Sidebar() {
         <Menu.Item key="1" icon={<HomeFilled />} onClick={() => navigate('/')}>
           Home
         </Menu.Item>
-        <Menu.Item key="2" icon={<PlusCircleFilled />} onClick={() => navigate('/')}>
-          My Profile
+        <Menu.Item key="2" icon={<PlusCircleFilled />} onClick={() => navigate('/hire')}>
+          Hire DAO
         </Menu.Item>
         <Menu.Item key="3" icon={<LogoutOutlined />} onClick={() => logOut()}>
           Logout

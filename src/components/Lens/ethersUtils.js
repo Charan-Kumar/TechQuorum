@@ -6,7 +6,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 export const signText = async (data) =>{
   const signer = await provider.getSigner();
-  signer.signMessage(data);
+  return await signer.signMessage(data);
 }
 
 export const getAddress = async() => {

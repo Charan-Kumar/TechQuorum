@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Typography, Row, Col, Button } from 'antd';
 import { useEthers } from '@usedapp/core'
+import WalletAddress from '../Utilities/WalletAddress'
 
 
 export default function Navbar() {
@@ -22,9 +23,11 @@ export default function Navbar() {
         <Col flex={3} className="gutter-row">
         </Col>
         <Col flex={1} className="gutter-row" style={{ alignSelf: 'center', display: 'flex', justifyContent: 'flex-end'}}>
-          <Button type="primary" size="large" onClick={() => connectWallet()}>
-            Connect
-          </Button>
+          { account ? <WalletAddress address={account} /> :
+            <Button type="primary" size="large" onClick={() => connectWallet()}>
+              Connect
+            </Button>
+          }
         </Col>
       </Row>
     </Header>

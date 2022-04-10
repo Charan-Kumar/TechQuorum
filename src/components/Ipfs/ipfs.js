@@ -1,17 +1,18 @@
 import { Web3Storage } from 'web3.storage'
 import { File } from 'web3.storage'
 import {Buffer} from 'buffer';
-import {axios} from 'axios';
+//import axios from 'axios';
 
  function makeFileObjects (values) {
      console.log(JSON.stringify(values))
-    const buffer = Buffer.from(JSON.stringify(values))  
-    console.log(buffer)
-    const files = [
+    //const buffer = Buffer.from(JSON.stringify(values))  
+    //console.log(buffer)
+    const f = new File([JSON.stringify(values)], 'file.json')
+    /*const files = [
       new File([buffer], 'Data.json'),
     ]
-    console.log(files)
-    return files
+    console.log(files)*/
+    return f
   }
 
   function getAccessToken () {
@@ -32,7 +33,8 @@ import {axios} from 'axios';
     const client = makeStorageClient()
     const files = makeFileObjects(values)
     console.log(files)
-    const cid = await client.put(files)
+    
+    const cid = await client.put([files], { wrapWithDirectory: false })
     console.log('stored files with cid:', cid)
     return cid
   }
@@ -51,15 +53,15 @@ import {axios} from 'axios';
     for (const file of files) {
         console.log(file);
       console.log(`${file.cid} -- ${file.name} -- ${file.size}`)
-      let jsonData = getIPFSData(file.cid,file.name)
-      return jsonData;
+      //let jsonData = getIPFSData(file.cid)
+      return files;
     }
     return;
   }
-  async function getIPFSData(cid,filename){
+  /*async function getIPFSData(cid){
     var config = {
       method: 'get',
-      url: 'https://ipfs.io/ipfs/'+cid+'/'+filename,
+      url: 'https://ipfs.io/ipfs/'+cid,
       headers: { }
     };
     
@@ -73,7 +75,7 @@ import {axios} from 'axios';
     .catch(function (error) {
       console.log(error);
     }); 
-  }
+  }*/
 
   /// @dev function to check the upvote functionality
   // @param values : cid

@@ -10,21 +10,21 @@ import {
   createUnfollowTypedData,
     createFollowTypedData,
     getFollowerRequest,
-    authencticate,
+    authenticate,
     generateChallenge,
     getProfilesRequest,
 } from "./ApolloRequest"; 
 
 
 export const login = async () => {
-    const address = await getAddress();
-    const challenge =  await generateChallenge(address);
-    const signature = await signText(challenge.data.challenge.text);
-
-    const accessToken = await authencticate(address,signature);
-    console.log(accessToken);
-    localStorage.setItem('access_token',accessToken.data.authencticate.accessToken);
-    localStorage.setItem('refresh_token',accessToken.data.authencticate.refreshToken);
+  const address = await getAddress()
+  const challenge = await generateChallenge(address);
+  const signature = await signText(challenge.data.challenge.text)
+  console.log(signature)
+  const accessToken = await authenticate(address, signature)
+  console.log(accessToken);
+  localStorage.setItem('access_token',accessToken.data.authenticate.accessToken);
+  localStorage.setItem('refresh_token',accessToken.data.authenticate.refreshToken);
 }
 
 

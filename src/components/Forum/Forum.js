@@ -1,9 +1,113 @@
-import React from 'react'
-
+import React, { createElement, useState } from 'react';
+import { Comment, Tooltip, Avatar } from 'antd';
+import { Form, Input, Button } from 'antd';
+import { storeIntoIpfs, retriveDataIpfs } from "../Ipfs/ipfs";
+import moment from 'moment';
+import { submitPost, upVote, getVoteCount } from './ethersUtils';
+import { LikeOutlined, LikeFilled } from '@ant-design/icons';
+const layout = {
+    labelCol: {
+      span: 4,
+    },
+    wrapperCol: {
+      span: 10,
+    },
+  };
+  const tailLayout = {
+    wrapperCol: {
+      offset: 4,
+      span: 14,
+    },
+  };
 export default function Forum() {
+  const [likes, setLikes] = useState(0);
+  const [tokenId, setTokenId] = useState(0);
+  const [action, setAction] = useState(null);
+
+  const [form] = Form.useForm();
+  let counter
+  
+  const onFinish = (values) => {
+    console.log(values);
+    storeIntoIpfs (values).then(function (response) {
+      console.log(response);
+      submitPost(response).then(function (response) {
+        console.log("Token ID",response.id);
+        setTokenId(response.id);
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
+    
+  };
+
+  const like = async () => {   
+    counter = likes
+    counter++
+    setLikes(counter);
+    await upVote(tokenId, 1)
+    getVoteCount(tokenId).then(function (response) {
+        console.log("TotalVoteCount",response)
+    })
+    //setDislikes(counter--);
+    setAction('liked');
+  };
+
+  /*const dislike = () => {
+    //setLikes(0);
+    setDislikes(1);
+    setAction('disliked');
+  };*/
+
+  const actions = [
+    <Tooltip key="comment-basic-like" title="Like">
+      <span onClick={like}>
+        {createElement(action === 'liked' ? LikeFilled : LikeOutlined)}
+        <span className="comment-action">{likes}</span>
+      </span>
+    </Tooltip>,
+    /*<Tooltip key="comment-basic-dislike" title="Dislike">
+      <span onClick={dislike}>
+        {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)}
+        <span className="comment-action">{dislikes}</span>
+      </span>
+    </Tooltip>,*/
+    <span key="comment-basic-reply-to">Reply to</span>,
+  ];
+
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <Comment
+      actions={actions}
+      author={<a>Han Solo</a>}
+      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+      content={
+        <p>
+         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+      <Form.Item
+        name="Question"
+        label="Question"
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      >
+         <Input.TextArea />
+      </Form.Item>
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Post
+        </Button>
+      </Form.Item>
+    </Form>
+        </p>
+      }
+      datetime={
+        <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+          <span>{moment().fromNow()}</span>
+        </Tooltip>
+      }
+    />
+  );
+};

@@ -21,16 +21,16 @@ export const getProfilesRequest =  async (request) => {
     })
 }
 
-export const generateChallenge = async (request) => {
+export const generateChallenge = async (address) => {
     return apolloClient.query({
         query : gql(GENERATE_CHALLENGE),
         variables : {
-            request
+            request: {address}
         }
     })
 }
 
-export const authencticate = async (address, signature) => {
+export const authenticate = async (address, signature) => {
     return apolloClient.mutate({
         mutation : gql(AUTHENTICATE),
         variables : {

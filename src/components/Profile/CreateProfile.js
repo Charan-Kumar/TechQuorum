@@ -68,9 +68,9 @@ export default function CreateProfile() {
     console.log(values);
     storeIntoIpfs (values).then(function (response) {
       console.log(response);
-      retriveDataIpfs(response).then(function (res) {
+      /*retriveDataIpfs(response).then(function (res) {
         console.log("create profile",res);
-      })
+      })*/
       //return response;
     })
     .catch(function (error) {
@@ -93,7 +93,7 @@ export default function CreateProfile() {
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
       <Form.Item
         name="dao"
-        label="Dao"
+        label="DAO"
         rules={[
           {
             required: true,
@@ -143,7 +143,7 @@ export default function CreateProfile() {
       </Form.Item>
       <Form.Item
         name="projectdetails"
-        label="ProjectDetails"
+        label="Project Details"
         rules={[
           {
             required: true,
@@ -155,7 +155,7 @@ export default function CreateProfile() {
       
       <Form.Item
         name="githublink"
-        label="GithubLink"
+        label="Github Link"
         rules={[{ required: false }, { type: 'url', warningOnly: true }, { type: 'string', min: 6 }]}
       >
         <Input />
