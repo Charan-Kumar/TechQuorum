@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { gql } from "@apollo/client";
-import { authenticatedApolloClient } from "../Lens/ApolloClient";
+import { create_Profile } from '../Lens/Api';
+
 import { Form, Input, Button, Select } from 'antd';
 import { storeIntoIpfs, retriveDataIpfs } from "../Ipfs/ipfs";
-import { createProfileReq } from '../Lens/Api';
 
 const { Option } = Select;
 const layout = {
@@ -65,15 +64,15 @@ const createProfileRequest =
     }
   };
 
+
   const onFinish = async(values) => {
     console.log(values);
     
     let response = await storeIntoIpfs (values);
   
-    let profile = await createProfileReq(createProfileRequest);
+    let profile = await create_Profile(createProfileRequest);
     console.log(response, profile)
   };
-
   
 
   return (
@@ -87,7 +86,7 @@ const createProfileRequest =
           },
         ]}
       >
-        setDAONameState(name)
+        
         <Input />
       </Form.Item>
       <Form.Item
@@ -149,7 +148,7 @@ const createProfileRequest =
           },
         ]}
       >
-        setFeesState(fees)
+        
         <Input />
       </Form.Item>
       <Form.Item {...tailLayout}>

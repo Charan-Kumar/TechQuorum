@@ -6,8 +6,8 @@ import Sidebar from './components/Layout/Sidebar';
 import Navbar from './components/Layout/Navbar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEthers } from '@usedapp/core'
-import { login, getProfilesRequest } from '../src/components/Lens/Api'
-
+import { login } from '../src/components/Lens/Api'
+import { getProfilesRequest } from '../src/components/Lens/ApolloRequest'
 
 function App() {
   const { Content } = Layout;
@@ -18,7 +18,15 @@ function App() {
   const getAccessToken = async () => {
     if( account ){
       await login()
-      localStorage.setItem('jobs', [])
+      const { data } = await getProfilesRequest({ ownedBy: account })
+      if( data.profiles.items.length === 0 ){
+        navigate('/create_profile')
+      }else{
+        localStorage.setItem('profile_id', data.profiles.items[0].id)
+        localStorage.setItem('wallet', data.profiles.items[0].ownedBy)
+        navigate('/')
+      }
+      localStorage.setItem('jobs', {})
     }
   }
 

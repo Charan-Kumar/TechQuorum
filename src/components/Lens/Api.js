@@ -3,7 +3,7 @@ import { signText,
     signTypedData,
     splitSignatures,
     getLensHub, 
-    // getFollowNftContract
+    getFollowNftContract
 } from "./ethersUtils";
 
 import {
@@ -80,7 +80,8 @@ export const unfollow = async(profileId) => {
     console.log(tx.hash);*/
   }
   
-export const createProfileReq = async (createProfileRequest) => {
+
+export const create_Profile = async (createProfileRequest) => {
   const tx = await createProfile(createProfileRequest);
   console.log(tx);
 }

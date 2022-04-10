@@ -16,7 +16,7 @@
   background-color: #f5f5f5;
 }
 
-.ant-layout-sider-collapsed{
+.ant-layout-sider, .ant-layout-sider-collapsed{
   height: 100vh;
   background-color: #0f0c0b;
 }
