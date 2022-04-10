@@ -23,7 +23,7 @@ function App() {
   }
 
   React.useEffect(async() => {
-    if( localStorage.getItem('access_token') !== null ){
+    if( ! localStorage.getItem('access_token')  ){
       getAccessToken()
 
     }
